@@ -5,4 +5,5 @@ class stringmethods:
         print("Print with upper case"+self.string.upper())
 str=stringmethods()
 str.getstring()
+
 str.printstring()
