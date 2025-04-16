@@ -117,6 +117,7 @@ def menu():
         elif choice == "0":
             break
         else:
+            
             print("❗ Дұрыс таңдау енгізіңіз!")
 
     cur.close()
