@@ -121,6 +121,7 @@ def menu():
 
     cur.close()
     conn.close()
+    
     print("🔒 Қосылым жабылды.")
 
 if __name__ == "__main__":
