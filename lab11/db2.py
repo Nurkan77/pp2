@@ -5,9 +5,9 @@ import csv
 import os
 
 DSN = {
-    "dbname": "Erss",
+    "dbname": "postgres",
     "user": "postgres",
-    "password": "1234",
+    "password": "nuras0709",
     "host": "localhost",
     "port": "5432"
 }
