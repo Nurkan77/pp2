@@ -116,7 +116,7 @@ def ensure_db():
     """
     with get_conn() as conn, conn.cursor() as cur:
         cur.execute(ddl)
-    print("✅ Table and all routines dropped & recreated.")
+    print("Table and all routines dropped & recreated.")
 
 def normalize_path(raw: str) -> str:
     p = raw.strip().strip('"').replace('\\', '/')
@@ -139,31 +139,31 @@ def load_from_csv(path: str):
         invalid = cur.fetchall()
 
     if invalid:
-        print("⚠️ Invalid rows:")
+        print("Invalid rows:")
         for fn, ln, ph in invalid:
             print(f"  • {fn} {ln} → {ph}")
     else:
-        print("✅ CSV imported.")
+        print("CSV imported.")
 
 def insert_manual():
-    fn = input("👤 First name: ").strip()
-    ln = input("👤  Surname: ").strip()
-    ph = input("📞 Phone: ").strip()
+    fn = input("First name: ").strip()
+    ln = input("Surname: ").strip()
+    ph = input("Phone: ").strip()
     with get_conn() as conn, conn.cursor() as cur:
         cur.execute(
             "CALL upsert_user(%s::text, %s::text, %s::text)",
             (fn, ln, ph)
         )
         conn.commit()
-    print("✅ Upserted.")
+    print("Upserted.")
 
 def search_data():
-    pat = input("🔎 Pattern: ").strip()
+    pat = input("Pattern: ").strip()
     with get_conn() as conn, conn.cursor() as cur:
         cur.execute("SELECT * FROM search_phonebook(%s)", (pat,))
         rows = cur.fetchall()
     if not rows:
-        print("❌ No matches.")
+        print("No matches.")
     else:
         for fn, ln, ph in rows:
             print(f"  • {fn} {ln} → {ph}")
@@ -173,7 +173,7 @@ def paginate():
         lim = int(input("Limit: "))
         off = int(input("Offset: "))
     except ValueError:
-        print("❌ Must be integers.")
+        print("Must be integers.")
         return
     with get_conn() as conn, conn.cursor() as cur:
         cur.execute(
@@ -185,11 +185,11 @@ def paginate():
         print(f"  • {fn} {ln} → {ph}")
 
 def delete_data():
-    val = input("🗑️  Delete by (first name, surname, or phone): ").strip()
+    val = input("Delete by (first name, surname, or phone): ").strip()
     with get_conn() as conn, conn.cursor() as cur:
         cur.execute("CALL delete_user(%s::text)", (val,))
         conn.commit()
-    print("✅ Deleted.")
+    print("Deleted.")
 
 def show_all():
     with get_conn() as conn, conn.cursor() as cur:
@@ -199,7 +199,7 @@ def show_all():
         )
         rows = cur.fetchall()
     if not rows:
-        print("📭 Empty.")
+        print(" Empty.")
     else:
         for fn, ln, ph in rows:
             print(f"  • {fn} {ln} → {ph}")
@@ -208,7 +208,7 @@ def menu():
     ensure_db()
     while True:
         print("""
-📱 PhoneBook CLI
+PhoneBook CLI
 1) Load CSV
 2) Insert/Update
 3) Search
